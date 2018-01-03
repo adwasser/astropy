@@ -1,7 +1,14 @@
 # Licensed under a 3-clause BSD style license - see PYFITS.rst
 
+import warnings
+from ...utils.exceptions import AstropyUserWarning
 
-import bz2
+try:
+    import bz2
+except ImportError:
+    warnings.warn('Your python version was built without support for bz2. You '
+                  'will not be able to read/write *.bz2 files.',
+                  AstropyUserWarning)
 import gzip
 import http.client
 import mmap
@@ -11,7 +18,6 @@ import io
 import os
 import sys
 import tempfile
-import warnings
 import zipfile
 import re
 
@@ -25,7 +31,6 @@ from .util import (isreadable, iswritable, isfile, fileobj_open, fileobj_name,
                    _array_to_file, _write_string)
 from ...utils.data import download_file, _is_url
 from ...utils.decorators import classproperty, deprecated_renamed_argument
-from ...utils.exceptions import AstropyUserWarning
 
 
 # Maps astropy.io.fits-specific file mode names to the appropriate file

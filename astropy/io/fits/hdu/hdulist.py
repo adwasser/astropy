@@ -1,13 +1,20 @@
 # Licensed under a 3-clause BSD style license - see PYFITS.rst
 
 
-import bz2
+import warnings
+from ...utils.exceptions import AstropyUserWarning
+
+try:
+    import bz2
+except ImportError:
+    warnings.warn('Your python version was built without support for bz2. You '
+                  'will not be able to read/write *.bz2 files.',
+                  AstropyUserWarning)
 import gzip
 import itertools
 import os
 import shutil
 import sys
-import warnings
 
 import numpy as np
 
@@ -21,7 +28,6 @@ from ..util import (_is_int, _tmp_name, fileobj_closed, ignore_sigint,
                     _get_array_mmap, _free_space_check)
 from ..verify import _Verify, _ErrList, VerifyError, VerifyWarning
 from ....utils import indent
-from ....utils.exceptions import AstropyUserWarning
 from ....utils.decorators import deprecated_renamed_argument
 
 
